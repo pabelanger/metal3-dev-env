@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+set -xe
 set -u
 
 # shellcheck disable=SC1091
@@ -154,11 +154,12 @@ FAILS=0
 BMO_RUN_LOCAL="${BMO_RUN_LOCAL:-false}"
 CAPBM_RUN_LOCAL="${CAPBM_RUN_LOCAL:-false}"
 
+IP_CMD=$(which ip)
 
 # Verify networking
 for bridge in ${BRIDGES}; do
   RESULT_STR="Network ${bridge} exists"
-  ip link show dev "${bridge}" > /dev/null
+  $IP_CMD link show dev "${bridge}" > /dev/null
   process_status $? "Network ${bridge} exists"
 done
 
